@@ -273,7 +273,7 @@ If so, what does it do? Explain your answer.
 
 Answer :
 
-The -> operator creates a new Proc, which is one of Ruby’s function types. (The -> is often called the “stabby proc”.)
+The -> operator creates a new Proc, which is one of Rubyâ€™s function types. (The -> is often called the â€œstabby procâ€.)
 
 This particular Proc takes one parameter (namely, a). When the Proc is called, Ruby executes the block
 
@@ -307,7 +307,7 @@ These methods are used to call the lambda
 
 defining a regular expression:
 ```ruby
-a)Regexp.new( ‘string pattern' [, options ] )
+a)Regexp.new( â€˜string pattern' [, options ] )
 b)/string pattern/
 c)%r{string pattern}
 d)->(x){string pattern}
@@ -317,7 +317,7 @@ Answer :
 
 First three syntax are true.
 
-a)Regexp.new( ‘string pattern' [, options ] )
+a)Regexp.new( â€˜string pattern' [, options ] )
 b)/string pattern/
 c)%r{string pattern}
 
@@ -351,11 +351,11 @@ Answer :
 Answer :
 
 ```ruby
-\W anything that’s not in [0-9a-zA-Z_]
+\W anything thatâ€™s not in [0-9a-zA-Z_]
 
-\D anything that’s not a number
+\D anything thatâ€™s not a number
 
-\S anything that’s not a space
+\S anything thatâ€™s not a space
 
 ```
 
@@ -417,7 +417,7 @@ Complex(5).abs2 =>25
 ```
 
 
-31. What is the alternative way of expressing ‘if not’.?
+31. What is the alternative way of expressing â€˜if notâ€™.?
 
 Answer :
 
@@ -502,7 +502,7 @@ end
 obj = B.new
 obj.x
 ```
-34. Is there an equivalent of “continue” in Ruby?
+34. Is there an equivalent of â€œcontinueâ€ in Ruby?
 
 Answer :
 
@@ -550,7 +550,7 @@ p sum([5, 10, 20])
 ```
 
 
-The ‘reduce’ method can be used to take an array and reduce it to a single value.
+The â€˜reduceâ€™ method can be used to take an array and reduce it to a single value.
 
 
 36. How can we print the minimum and maximum value from an array using a single method?
@@ -566,3 +566,552 @@ puts [2,4,55,0,45].minmax
 
 #0,55
 ```
+
+â–²
+
+37. What does the following code print?
+
+```ruby
+def add(x, y)
+  return(x + y)
+end
+
+result = add(4, 5) do
+  puts "Hey Ruby"
+end
+
+p result
+    
+9
+```
+Answer :
+
+The add() method is passed a code block, but it doesn't require the code block. When methods are passed a code block but don't require the code block, the code block is simply ignored.
+  
+38.is this valid code?
+
+```ruby
+
+class Learning
+  def i_learn
+    x = 'ruby'
+    y = 'rails'
+    z = 'sqlite3'
+   
+  end
+end
+
+b = Learning.new.i_learn
+p eval('"The #{self.class}, the #{x}, the #{y}, the #{z}"', b)
+```
+
+How can we get this output?
+
+```ruby
+
+output 
+"The Learning, the ruby, the rails, the sqlite3"
+```
+Answer : 
+
+Binding objects can be used as the second argument of eval() to set the scope. The string of code passed as the first argument in eval() is evaluated in the context of the binding passed in the second argument.
+  
+39. Add code to the following class so 
+
+```ruby
+
+Motivation.new.speak returns "Go speed racer!!!"
+
+first = 'speed'
+second = 'racer'
+class Motivation
+  def speak
+    # add code here
+  end
+end
+```
+Answer :
+
+The TOPLEVEL_BINDING constant refers to the top level object. Note that this code will not work if it's pasted into the IRB console, this code must be run from a file with the normal Ruby interpreter.
+  
+40. What does the following code print? Explain.
+
+```ruby
+
+class A
+  private
+  def method_missing(name, *args)
+    args.unshift(name.to_s).join
+  end
+end
+
+p A.new.meta('programming', 'ruby')
+    
+"metaprogrammingruby"
+```
+Answer :
+
+The name parameter is assigned to the method name (:meta) and args is assigned to an array of the arguments (['programming', 'ruby']).
+  
+41. What does the following code print? Explain.
+```ruby
+
+class Human
+  def Human.about; end
+  def self.generation; end
+  def hi; end
+  instance_eval do
+    def bye; end
+  end
+end
+
+p Human.singleton_methods
+    
+[:about, :generation, :bye]
+```
+Answer :
+
+There are several ways to define singleton methods. Notice that the Human#hi method is a regular instance method and is not a singleton method.
+  
+42. What does the following code print? Explain.
+
+```ruby
+
+class Soccer
+  @fun = 'woo hoo'
+  def initialize
+    @goal = 'score'
+  end
+end
+
+s = Soccer.new
+p s.instance_variables
+    
+[:@goal]
+```
+Answer :
+
+The @goal instance variable is bound to instances of the Soccer class. The @fun instance variable is bound to the Soccer class object itself, not instances of the Soccer class.
+  
+43. Compare eql? and edual? methods
+    
+Answer :
+
+eql? â€“ Checks if the value and type of two operands are the same (as opposed to the == operator which compares values but ignores types). For example, 1 == 1.0 evaluates to true, whereas 1.eql?(1.0) evaluates to false.
+
+equal? â€“ Compares the identity of two objects; i.e., returns true if both operands have the same object id (i.e., if they both refer to the same object). Note that this will return false when comparing two identical copies of the same object.
+  
+44.How do you remove nil values in array using ruby?
+
+Answer :
+
+```ruby
+
+>> [nil,123,nil,"test"]
+=> [123, "test"]
+    
+>> [nil,123,nil,"test"].compact
+
+=> [123, "test"]
+
+```  
+45. 
+```ruby
+
+if false
+  value = 'test'
+end
+```
+What will be the value of:
+
+defined? value
+defined? none
+
+Answer :
+```ruby
+
+defined? value
+#=> "local-variable"
+defined? bar
+#=> nil
+```
+46. Can you call a private method outside a Ruby class using its object?
+
+Given the class Test:
+
+```ruby
+
+class Test
+   private
+       def method
+         p "I am a private method"
+      end
+end
+    
+>> Test.new.send(:method)
+"I am a private method"
+
+```
+Answer :
+
+Yes, with the help of the send method.
+  
+47. What does the following code print? Explain.
+
+```ruby
+
+class Pencil; end
+
+p Pencil.class
+p Pencil.superclass
+```    
+>Class
+>Object
+
+Answer : 
+
+All class objects (objects that can be used to instantiate other objects) are instances of the Class class. Hash.class, Array.class, String.class, and Pencil.class all return Class.
+  
+48. What does the following code print? Explain.
+
+```ruby
+
+p BasicObject.superclass
+
+```  
+Answer : 
+
+nil
+Every class object (i.e. instance of the Class class) has a superclass, except for BasicObject. BasicObject is at the top of the class hierarchy and does not have a superclass.
+  
+49. What does the following code print? Explain.
+
+```ruby
+
+p BasicObject.singleton_class.superclass
+```
+
+Answer :
+
+Class
+BasicObject's singleton class inherits from Class.
+  
+50. 
+```ruby
+
+versions = {:ruby=>"3"}
+```
+What is the difference between the following lines of code?
+
+```ruby
+
+versions[:rails]
+versions.fetch(:rails)
+```
+Answer : 
+
+versions.fetch(:rails) raises an exception because the :railskey is not present in the versionshash (if a second argument was added to the fetch() method, the default value would be returned instead of raising an exception).
+
+versions[:rails] returns nil because the :rails key is not present in the versions hash.
+  
+51. What is the output of this code?
+```ruby
+
+def dubSplat(a, *b, **c)  
+        p b
+  p c
+end
+    
+dubSplat(1,2,3, 4, a: 40, b: 50)
+``` 
+Answer : 
+
+=> [2, 3, 4]
+You can also use the splat operator(*) to grab any segment of an array
+The double splat operator (**) can be used for hashes!
+=> {:a=>40, :b=>50}
+52. What is Spaceship Operator in Ruby? How it is working?
+
+```ruby
+a <=> b 
+```
+
+Answer : 
+
+  if a < b then return -1
+  if a = b then return  0
+  if a > b then return  1
+  if a and b are not comparable then return nil
+  
+53. What is the name of this operator? How it will work?
+
+===
+
+Answer : 
+   
+subsumption operator.
+
+ "If a described a set, would b be a member of that set?"
+
+```ruby
+(1..5) === 3           # => true
+(1..5) === 6           # => false
+
+Integer === 42          # => true
+Integer === 'fourtytwo' # => false
+```
+54. True or False?
+
+```ruby
+>count ||= 0
+```
+Answer : 
+
+count ||= 0 gives count the value 0 if count is nil or false.
+    
+True
+
+a ||= b
+The assignment statement supports a set of shortcuts: a op= b is the same
+as a = a op b. This works for most operators:
+count += 1 # same as count = count + 1
+price *= discount # price = price * discount
+count ||= 0 # count = count || 0
+So, count ||= 0 gives count the value 0 if count is nil or false.
+
+55.
+
+```ruby
+string = "Ruby" + " 3" 
+  
+string = "Ruby" "3" 
+  
+string = "Ruby" << " 3." 
+  
+string = "Ruby".concat("3")
+
+```
+puts string  
+
+Answer : 
+
+"Ruby 3"
+
+Which one is false?
+    
+All are true
+
+there are 4 ways to do string concatenation
+  
+56. What does the following code return?
+
+```ruby
+book = ["intelligent investor"]
+great_book = ["intelligent investor"]
+
+book.object_id == great_book.object_id
+```
+Answer : 
+
+false
+
+The book and great_book arrays have the same content, but are different instances of the Array class and therefore have different object_ids. Array equality comparisons in Ruby check if arrays have the same content in the same order, not if the arrays are the same exact object.
+  
+
+57.What would be the output?
+```ruby
+class Monster
+  private
+  def method_missing(name, *args)
+    puts "blah monster, attack!"
+  end
+end
+
+ob = Monster.new
+
+ob.method :output
+ob.method :name
+
+ob.name
+ob.output
+
+```   
+Answer : 
+
+ob.name alone will give output. rest of the ob.method will raise errors.
+  
+58. What would be the output?
+
+```ruby
+class Mammal
+  def self.about
+    "we are living creatures"
+  end
+end
+
+class Dog < Mammal; end
+
+p Dog.about
+
+```
+Answer : 
+
+"we are living creatures"
+
+
+Class methods are also inherited.
+  
+59. What are differences in these two class definitions?
+
+```ruby
+#Class Definition #1
+class Cat < Object
+end
+
+#Class Definition #2
+class Cat
+end
+
+```
+Answer : 
+
+There is no difference between Class Definition #1 and Class Definition #2. Class Definition #1 explicitly inherits from Object, but Class Definition #2 inherits from Object by default (implicitly), so these class definitions are identical.
+  
+60. What does the following code print? Explain.
+
+```ruby
+module X; end
+module Y; end
+class Z
+  include Y
+  include X
+end
+
+p Z.ancestors
+```
+Answer : 
+ 
+[Z, X, Y, Object, Kernel, BasicObject]
+When Y is included, it is added immediately to the right of Z in the ancestors chain. When X is included, it is added immediately to the right of Z in the ancestors chain, thus moving Y one position to the right.
+  
+61. Is this Valid code?
+
+```ruby
+module Batman
+  def self.sidekick
+    'robin'
+  end
+end
+
+p Batman::sidekick
+    
+'robin'
+
+```
+Answer : 
+
+Singleton methods of a module can either be called with dot notation (Batman.sidekick) or :: notation (Batman::sidekick).
+  
+62. Is this valid?
+
+```ruby
+class Dog; end
+dog = Dog.new
+def dog.bark
+  "ruff ruff"
+end
+
+
+p dog.bark
+```   
+"ruff ruff"
+Answer : 
+
+dog is an instance of the Dog class and is given a singleton method bark(). The bark() method can be called on the dog instance of the Dog class, but is not available for other instances of the Dog class.
+
+  
+63. What is the difference between Explicitly casting and  implicitly coercing types in Ruby?
+  
+Answer : 
+
+The most common casting helpers are #to_s, #to_i, #to_a and #to_h. These are explicit casting methods. They help us easily transform a value from one type to another.
+
+
+Ruby also offers implicit coercion methods which only return a value when objects act like the type. This way we can be sure that the value acts like the type we want. These implicit coercion methods are #to_str, #to_int, #to_ary and #to_hash
+  
+64. What is the use of Undef Keyword?
+    
+Answer : 
+
+Ruby provides a special keyword which is known as undef keyword. This keyword used to avoid the current working class from responding to calls to the specified named methods or variable.
+  
+65. Which one is not a reserved keyword in Ruby?
+
+a)defined?
+b)alias
+c)_ _FILE_ _
+d)nil
+
+Answer : 
+  
+All are reserved keywords
+  
+66. If we do dynamic modification to a class (means to add new or overwrite existing methods) at runtime that technique will be called as ?
+
+Answer : 
+
+In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods at runtime.
+  
+67. What would be the output of this code?
+
+
+```ruby
+h1 = {a: 1, b: 2}
+h2 = h1.merge!({lala: "word up"})
+puts h1.object_id == h2.object_id
+```
+
+Answer : 
+
+true
+
+The Hash#merge! method combines two hashes and mutates the original hash. Since the haha and bozo variables are assigned to the same object, they have the same object id. If the Hash#merge method was used (notice no !), then the original object would not have been mutated and the object ids would be different
+  
+68. what is the user of this operator?
+
+!~
+
+```ruby   
+if "Ruby Quicktips" !~ /\d+/
+  puts "The string does not contain any digits."
+end
+# The string does not contains any digits.
+# => nil
+``` 
+69.How to print this output?
+
+30 29 28 27 26 25
+
+Answer : 
+
+```ruby   
+30.downto(25){ |i| puts i}
+```
+The downto() function in Ruby returns all the numbers less than equal to number and greater than equal to limit.
+  
+70.What is the use of partition method in string?
+
+
+Answer : 
+
+```ruby   
+partition(sep) â†’ [head, sep, tail]
+
+"hello".partition("l")         #=> ["he", "l", "lo"]
+"hello".partition("x")         #=> ["hello", "", ""]
+```
+
+
+
+
+
