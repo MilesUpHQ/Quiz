@@ -307,7 +307,7 @@ These methods are used to call the lambda
 
 defining a regular expression:
 ```ruby
-a)Regexp.new( ‘string pattern' [, options ] )
+a)Regexp.new( ‘string pattern' ,[ options ] )
 b)/string pattern/
 c)%r{string pattern}
 d)->(x){string pattern}
@@ -1111,7 +1111,342 @@ partition(sep) → [head, sep, tail]
 "hello".partition("x")         #=> ["hello", "", ""]
 ```
 
+71. What does the following code print? Explain.
+
+```ruby
+h = {}
+class Sublime
+@fav = 'caress me down'
+def sing(obj)
+obj.instance_variable_set(:@greeting, 'mucho gusto')
+obj.instance_variable_set(:@name, 'me llamo brad lee')
+end
+end
+
+s = Sublime.new
+s.sing(h)
+p s.instance_variables
+p "***"
+p h.instance_variables
+```
+
+Answer : 
+
+[]
+"***"
+[:@greeting, :@name]
 
 
+In this example, the instance variables are bound to a specific object and are not bound to self by default.
+
+72.What does the following code print? Explain.
+
+```ruby
+class Object
+private
+def method_missing(name, *args)
+'This is a terrible idea'
+end
+end
+
+p 'string'
+p 'boo'.fooey
+p 'array'
+p [].boggie_down
+
+Answer : 
+
+```
+'string'
+'This is a terrible idea'
+'array'
+'This is a terrible idea'
+
+Object#method_missing is called before the default BasicObject#method_missing can be called. This code would return 'This is a terrible idea' for almost all messages sent to objects that inherit from Object cannot respond to. It's terrible code, but illustrates the method_missing lookup process and how instances of different classes can share the same method_missing.
 
 
+73. What does the following code print? Explain.
+
+```ruby
+class RubyGuide
+  class << self
+    p self
+    p self == RubyGuide.singleton_class
+  end
+end
+```
+
+Answer : 
+
+#
+true
+
+74. What is the output of this code?
+```ruby
+require 'date'
+(4.days + 5.weeks).from_now
+```
+
+Answer : 
+
+Error
+You need active support in rails to do that
+
+
+75. How to print this output?
+
+30 29 28 27 26 25
+
+Answer : 
+
+30.downto(25){ |i| puts i}
+
+The downto() function in Ruby returns all the numbers less than equal to number and greater than equal to limit.
+
+76. Which of the following methods can be used in Ruby to get a random number?
+
+a) rnd
+
+b) Math.GetRandomNumber
+
+c) $random
+
+d) rand
+
+Answer : 
+
+rand(1..10)
+
+77. Difference between "require" and "load" in module?
+
+
+Answer : 
+
+Require reads the file from the file system, parses it, saves to the memory, and runs it in a given place. In require, if you modify the specified file when the script is running, those modifications won’t be applied, Ruby will use the file from memory, not from the file system of the machine.
+
+Load reads and parses files every time the file (in which load is called) is executed
+
+78. How can you run some ruby script without IRB or ruby file?
+
+We can use the -e tag against the ruby command.
+
+Answer :
+```ruby
+>ruby -e 'puts "Ruby programming"'
+```
+
+79. What would be the output of the code?
+
+```ruby
+puts "This statement comes later"
+BEGIN {
+puts "This statement will be printed in the beginning"
+}
+```
+
+Answer :
+```ruby
+This statement will be printed in the beginning
+This statement comes later
+```
+
+80. It is possible to print multi-line strings using print in Ruby?
+
+Answer :
+
+yes
+
+We can use "Here Document"
+
+```ruby
+print <<`EOC`                 # execute commands
+echo First Statement
+echo Second Statement
+EOC
+```
+
+```ruby
+print <<EOF
+Multiple line string.
+First wayEOF
+              # same as above
+Multiple line string.
+Second way
+EOF
+```
+
+You can also use,
+
+```ruby
+print "\n I am also multiline string 
+  \n you can use this too
+end"
+
+```
+
+81. What would be the output?
+
+```ruby
+"[%s]" % "same old drag"
+```
+
+Answer :
+
+=> "[same old drag]"
+
+This is quick string interpolation
+
+
+82. 
+```ruby
+x = %w{p hello p}
+puts "<%s>%s</%s>" % x 
+```
+
+is this valid?
+
+Answer :
+
+yes. It is also Interpolation
+
+```ruby
+<p>hello</p>
+```
+
+83. What is the output of this code?
+
+```ruby
+a = %w{a b}
+b = %w{c d}
+
+[a + b]
+[*a + b]
+```
+Answer :
+
+[a + b] # => [["a", "b", "c", "d"]]
+[*a + b] # => ["a", "b", "c", "d"]
+
+84. 
+```ruby
+does = is = { true => 'Yes', false => 'No' }
+
+does[10 == 50]
+is[10 > 5]
+```
+
+is this valid ?
+
+
+Answer :
+
+It's rare you see anyone use non-strings or symbols as hash keys. It's totally possible though, and sometimes handy.
+
+```ruby
+does[10 == 50] # => "No"
+is[10 > 5] # => "Yes"
+```
+85. 
+```ruby
+require 'rubygems'
+require 'activemerchant'
+require 'date'
+```
+If we have more required modules, shall we use any shortcut code for this?
+
+Answer :
+
+you can take this to extremes using Ruby's enumerators to perform similar operations multiple times. Consider requiring multiple files, for instance:
+
+```ruby
+%w{date json rubygems}.each { |x| require x }
+puts Date.today
+puts JSON.parse('{"desc":{"someKey":"someValue","anotherKey":"value"},"main_item":{"stats":{"a":8,"b":12,"c":10}}}')
+```
+
+86. 
+```ruby
+qty = 1
+qty == 0 ? 'none' : qty == 1 ? 'one' : 'many'
+```
+is this valid code?
+
+What would be the output?
+
+Answer :
+
+"one"
+
+ternary operators can be nested within each other
+
+87. How to skip this error?
+
+```ruby
+h = { :age => 10 }
+h[:name].downcase =>Error
+```
+
+
+Answer :
+yes.
+You can use rescue in its single line form to return a value when other things on the line go awry:
+
+```ruby
+h = { :age => 10 }
+h[:name].downcase # ERROR
+h[:name].downcase rescue "No name" # => "No name"
+```
+
+another way
+```ruby
+h.fetch(:name,"no name")
+```
+
+88. How to delete directories with files in Ruby?
+
+To delete directories, Ruby comes with a handy file utility library called FileUtils that can do the hard work:
+
+Answer: 
+
+```ruby
+require 'fileutils'
+FileUtils.rm_r 'somedir'
+```
+89. 
+```ruby
+money = 9.5
+cost = 100
+
+```
+
+How to convert the above to "9.50" and "100.00"?
+
+Answer :
+
+Formatting floating point numbers into a form used for prices can be done with sprintf or, alternatively, with a formatting interpolation:
+```ruby
+money = 9.5
+cost = 100
+puts "%.2f" % money 
+puts "%.2f" % cost 
+```
+
+90. 
+```ruby
+a = %w{a b c d e f g h}
+b = [0, 5, 6]
+
+a.values_at(b[0])
+a.values_at(b[1])
+a.values_at(b[2]) # a , f, g
+```
+How to get the values in one shot?
+
+Answer :
+
+```ruby
+a = %w{a b c d e f g h}
+b = [0, 5, 6]
+a.values_at(*b).inspect
+```
+use explode
