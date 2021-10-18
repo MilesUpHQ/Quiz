@@ -1,4 +1,4 @@
-[Question1: How the programs in JavaScript language are called? ](#question1)  
+[Question1: What is the name of programs in JavaScript language? ](#question1)  
 
 [Question2: How JavaScript can execute not only in the browser, but also on the server, or actually on any device? ](#question2)  
 
