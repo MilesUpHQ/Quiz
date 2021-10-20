@@ -3,13 +3,13 @@
 [Question2: How can JavaScript be executed not only in the browser, but also on the server, or on any device? ](#question2)  
 
 
-[Question3:What makes JavaScript unique?](#question3)
+[Question3: What makes JavaScript unique?](#question3)
 
-[Question4:What is JS Virtual Machine?](#question4)
+[Question4: What is JS Virtual Machine?](#question4)
 
-[Question5:Name some IDE/editors?](#question5)
+[Question5: Name some IDE/editors?](#question5)
 
-[Question6:Which key is used to open the developer tools?](#question6)
+[Question6: Which key is used to open the developer tools?](#question6)
 
 [Question7: Is this correct statement? The type and language attributes are not required in JS.](#question7)
 
@@ -74,12 +74,12 @@ SpiderMonkey – in Firefox.
 
 #### Answer
 
-######IDE
+###### IDE
 
 - Visual Studio Code (cross-platform, free).
 - WebStorm (cross-platform, paid).
 
-######Editors
+###### Editors
 
 - Atom (cross-platform, free).
 - Sublime Text (cross-platform, shareware).
